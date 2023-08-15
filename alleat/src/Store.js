@@ -5,7 +5,7 @@ import stores from './stores.js';
 import './Store.css';
 
 export default function StoreList() {
-    const movePage = useNavigate();
+    const navigate = useNavigate();
     const [searchText, setSearchText] = useState('');
     const filteredStores = Object.values(stores).filter((store) =>
       store.name.toLowerCase().includes(searchText.toLowerCase())
@@ -34,7 +34,7 @@ export default function StoreList() {
                     <div className="StoreLocation">{store.location}</div>
                   </div>
                 </div>
-                <Button onClick={() => movePage('seat', { state: { storeId: store.id } })} type="primary"
+                <Button onClick={() => navigate('seat', { state: { storeId: store.id } })} type="primary"
                 className="Button">잔여좌석 확인</Button>
               </div>
             ))}

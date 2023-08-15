@@ -1,0 +1,61 @@
+.container {
+    flex: 1;
+  }
+  
+.title {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+.infoCell {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+  }
+  
+.infoTitle {
+    flex: 3;
+    font-size: 20px;
+    color: grey;
+  }
+  
+.infoTextBox {
+    flex: 7;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+  }
+  
+.payText {
+    font-size: 20px;
+    color: grey;
+    margin: 10px;
+  }
+  
+.payButton {
+    width: 90%;
+    background-color: #8B00FF;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid #8B00FF;
+    border-radius: 5px;
+  }
+  
+.payButtonText {
+    color: white;
+    font-size: 14px;
+    margin: 10px 24px;
+  }
+  
+.footer {
+    position: relative;
+    padding: 16px;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: white;
+  }

@@ -109,11 +109,11 @@ export default function Seat() {
             key="submit"
             type="primary"
             onClick={() =>
-              navigate('menu', {
-                storeId,
-                tableNum,
+              navigate('/menu', {state: {
+                storeId: storeId,
+                tableNum: tableNum,
                 customerNum: adultCount + childCount
-              })
+              }})
             }
           >
             메뉴 고르기
