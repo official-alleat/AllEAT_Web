@@ -1,0 +1,105 @@
+.container {
+    flex: 1;
+    background-color: #D0A9F5;
+}
+  
+.storeCell {
+    flex: 1;
+    background-color: white;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 7px;
+    margin: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.storeDescription {
+    flex-direction: row;
+    align-items: center;
+}
+
+.storeImage {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 7px;
+}
+
+.storeName {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.tableGrid {
+    flex: 8;
+    background-color: white;
+    border-radius: 7px;
+    margin: 5px;
+    align-items: center;
+    padding: 30px;
+}
+
+.row {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.col {
+    width: 50px;
+    height: 50px;
+}
+
+.availableTable {
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    margin: 10px;
+    padding: 5px !important;
+    border-radius: 7px;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.reservedTable {
+    justify-content: center;
+    align-items: center;
+    background-color: #616161;
+    border-style: solid;
+    border-width: 1px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 7px;
+    height: 50px;
+    width: 50px;
+}
+
+.notTable {
+    justify-content: center;
+    background-color: #fff;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 7px;
+    height: 50px;
+    width: 50px;
+}
+
+.tableName {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.modal {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.selectNumOfPeople {
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+}
