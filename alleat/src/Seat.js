@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { Image, Modal, Button, Typography, Row, Col, InputNumber } from 'antd';
+import { w3cwebsocket} from 'websocket'
 import stores from './stores.js';
 import './Store.css';
 
@@ -17,33 +18,34 @@ export default function Seat() {
     const [adultCount, setAdultCount] = useState(0);
     const [childCount, setChildCount] = useState(0);
     const [tableNum, setTableNum] = useState(0);
-    const [tablesStatus, setTablesStatus] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+    const [tablesStatus, setTablesStatus] = useState([]);
 
-    // const ws = new WebSocket("ws://172.30.1.55:8080");
+    useEffect(() => {
+      const ws = new w3cwebsocket('ws://localhost:8080');
+        ws.onopen = () => {
+          console.log('Connection is open.');
+          ws.send(JSON.stringify({ 'storeId': storeId, 'tableNum': -1, 'command': 'get' }));
+        };
+    
+        ws.onmessage = (event) => {
+          console.log('Received from server:', event.data);
+    
+          const jsonData = JSON.parse(event.data);
+          const newStatus = jsonData[1]['available'];
+          setTablesStatus(newStatus);
+        };
+    
+        ws.onerror = (error) => {
+          console.log('WebSocket error:', error);
+        };
+    
+        return () => {
+          ws.close();
+          console.log('Connection is closed.');
+        };
+    }, [storeId]);
 
-    // useEffect(() => {
-    //     ws.onopen = () => {
-    //       console.log('Connection is open.');
-    //       ws.send(JSON.stringify({ 'storeId': storeId, 'tableNum': -1, 'command': 'get' }));
-    //     };
-    
-    //     ws.onmessage = (event) => {
-    //       console.log('Received from server:', event.data);
-    
-    //       const jsonData = JSON.parse(event.data);
-    //       const newStatus = jsonData[1]['available'];
-    //       setTablesStatus(newStatus);
-    //     };
-    
-    //     ws.onerror = (error) => {
-    //       console.log('WebSocket error:', error);
-    //     };
-    
-    //     return () => {
-    //       ws.close();
-    //       console.log('Connection is closed.');
-    //     };
-    // }, [storeId, ws]);
+    console.log(tablesStatus)
     
     const getTables = () => {
         return (
