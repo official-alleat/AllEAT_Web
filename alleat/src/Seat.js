@@ -18,7 +18,7 @@ export default function Seat() {
     const [adultCount, setAdultCount] = useState(0);
     const [childCount, setChildCount] = useState(0);
     const [tableNum, setTableNum] = useState(0);
-    const [tablesStatus, setTablesStatus] = useState([]);
+    const [tablesStatus, setTablesStatus] = useState([1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1]);
 
     useEffect(() => {
       const ws = new w3cwebsocket('ws://localhost:8080');
