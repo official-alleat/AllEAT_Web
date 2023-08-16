@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Card, Typography, Badge, message } from 'antd';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Modal, Row, Col, Card, Typography, Badge, message, InputNumber } from 'antd';
+import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores';
 import './Menu.css';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -71,31 +71,33 @@ export default function Menu() {
 
   return (
     <div className="container">
-      <div className="header">
+      <div className="header" style={{ margin: 15 }}>
         <Title level={3}>{stores[storeId].name}</Title>
-        <div className="header-text">
-          <Text>테이블 번호: {tableNum}</Text>
-          <Text>인원수: {customerNum}</Text>
+        <div className="header-text" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+          <Text style={{ fontSize: 20, fontWeight: '400',}}>테이블 번호: {tableNum}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '400',}}>인원수: {customerNum}</Text>
         </div>
       </div>
-      <div className="menuContainer">
-        {menu_data.map((item, index) => (
-          <Card
-            key={index}
-            className="menuCard"
-            onClick={() => handleCardPress(item)}
-            hoverable
-            cover={<img alt={item.menu_name} src={item.image} className="menuImage" />}
-          >
-            <div className="menuContent">
-              <Title level={5}>{item.menu_name}</Title>
-              <Text>{item.price.toLocaleString()}원</Text>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <Row gutter={[16, 16]}>
+  {menu_data.map((item, index) => (
+    <Col key={index} xs={8} sm={8} md={6} lg={4}>
+      <Card
+        className="menuCard"
+        onClick={() => handleCardPress(item)}
+        hoverable
+        cover={<img alt={item.menu_name} src={item.image} className="menuImage" />}
+        style={{ width: '100%' }}
+      >
+        <div className="menuContent">
+          <Title level={5}>{item.menu_name}</Title>
+          <Text>{item.price.toLocaleString()}원</Text>
+        </div>
+      </Card>
+    </Col>
+  ))}
+</Row>
       {!!totalCount && (
-        <div className="footer">
+        <div className="footer" style={{ position: 'fixed', bottom: 0, width: '100%' }}>
           <Button
             type="primary"
             onClick={() =>
@@ -128,12 +130,11 @@ export default function Menu() {
         ]}
       >
         <div className="modalContent">
-          <Title level={5}>{selectedItem?.menu_name}</Title>
-          <Text>{selectedItem?.price}원</Text>
-          <div className="counter">
-            <Button icon={<MinusOutlined />} onClick={decreaseCount} />
-            <Text>{count}</Text>
-            <Button icon={<PlusOutlined />} onClick={increaseCount} />
+          <Text style={{ fontSize: 16 }}>{selectedItem?.price}원</Text>
+          <div className="counter" style={{ marginTop: 10 }}>
+            <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={decreaseCount} />
+            <InputNumber style={{ marginLeft: 10, marginRight: 10 }} value={count} onChange={value => setCount(value)} min={0}/>
+            <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={increaseCount}/>
           </div>
         </div>
       </Modal>

@@ -1,34 +1,38 @@
 .container {
     flex: 1;
-    background-color: #D0A9F5;
 }
-  
-.storeCell {
-    flex: 1;
+
+.StoreCell {
     background-color: white;
-    flex-direction: row;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 7px;
     margin: 5px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 10px;
 }
 
-.storeDescription {
-    flex-direction: row;
+.StoreDescription {
+    display: flex;
     align-items: center;
 }
 
-.storeImage {
+.StoreImage {
     width: 60px;
     height: 60px;
-    margin: 5px;
+    margin-right: 10px;
     border-radius: 7px;
 }
 
-.storeName {
-    font-size: 22px;
+.StoreName {
+    font-size: larger;
     font-weight: 500;
+    text-align: left;
+}
+
+.StoreLocation {
+    text-align: left;
 }
 
 .tableGrid {
