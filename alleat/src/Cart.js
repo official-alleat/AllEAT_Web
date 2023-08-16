@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Typography, Button, InputNumber } from 'antd';
+import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores';
 import { useLocation, useNavigate } from "react-router-dom";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 export default function Cart() {
     const location = useLocation();
@@ -36,13 +37,13 @@ export default function Cart() {
     return Object.keys(menuCountData).map((menuName, index) => (
       menuCountData[menuName].count > 0 && (
         <div key={index} style={styles.menuCell}>
-          <Title level={4}>{menuName}</Title>
+          <Title level={4} style={{ textAlign: 'left' }}>{menuName}</Title>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p style={styles.menuPrice}>{menuCountData[menuName].price}원</p>
-            <div style={{ display: 'flex' }}>
-              <Button onClick={() => handleDecrease(menuName)}>-</Button>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={() => handleDecrease(menuName)}/>
               <p style={styles.menuCount}>{menuCountData[menuName].count}</p>
-              <Button onClick={() => handleIncrease(menuName)}>+</Button>
+              <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={() => handleIncrease(menuName)}/>
             </div>
           </div>
         </div>
@@ -60,20 +61,20 @@ export default function Cart() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.header}>
+      <div className="header" style={{ margin: 15 }}>
         <Title level={3}>{stores[storeId].name}</Title>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <p style={styles.headerText}>테이블 번호: {tableNum}</p>
-          <p style={styles.headerText}>인원수: {customerNum}</p>
+        <div className="header-text" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+          <Text style={{ fontSize: 20, fontWeight: '400',}}>테이블 번호: {tableNum}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '400',}}>인원수: {customerNum}</Text>
         </div>
       </div>
       <div style={styles.menuList}>
         {renderCartItems()}
       </div>
-      <div style={styles.footer}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '14px' }}>
-          <p style={{ flex: 7, fontSize: '20px', fontWeight: '600' }}>총 주문금액</p>
-          <p style={{ flex: 3, fontSize: '20px', textAlign: 'right' }}>{calculateTotalPrice()}원</p>
+      <div style={{ ...styles.footer, position: 'fixed', bottom: 0, width: '100%'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '14px' }}>
+          <p style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</p>
+          <p style={{ fontSize: '20px' }}>{calculateTotalPrice()}원</p>
         </div>
         <Button 
           type="primary" 
@@ -103,7 +104,7 @@ const styles = {
     fontWeight: '400',
   },
   menuList: {
-    margin: '10px 0',
+    margin: 15,
     backgroundColor: 'white',
   },
   menuCell: {
@@ -118,7 +119,9 @@ const styles = {
     margin: '0 20px',
   },
   footer: {
-    position: 'relative',
+    position: 'fix',
+    bottom: 0,
+    width: '100%',
     padding: '16px',
     alignItems: 'center',
     justifyContent: 'center',

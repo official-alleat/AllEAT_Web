@@ -1,6 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Typography, Button, InputNumber, Input, Radio, Space } from 'antd';
+
+const { Title, Text } = Typography;
 
 export default function Pay(effect, deps) {
+    const [payment, setPayment] = useState(1);
+
+    const onChangeRadio = (e) => {
+        console.log('radio checked', e.target.value);
+        setPayment(e.target.value);
+      };
+
     useEffect(() => {
         const jquery = document.createElement('script');
         jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
@@ -49,10 +59,18 @@ export default function Pay(effect, deps) {
     };
 
     return (
-        <button onClick={onClickPayment}>결제하기</button>
+        <div className='container' style={{flex: 1}}>
+            <Radio.Group onChange={onChangeRadio} value={payment}>
+                <Space direction="vertical" align='start'>
+                <Radio value={1}>신용카드</Radio>
+                <Radio value={2}>카카오페이</Radio>
+                <Radio value={3}>네이버페이</Radio>
+                </Space>
+            </Radio.Group>
+
+            <div style={{ position: 'fixed', bottom: 0, width: '100%'}}>
+                <Button type="primary" onClick={onClickPayment}>결제하기</Button>
+            </div>
+        </div>
     );
 };
-
-// export default function Pay(){
-//     return (<div>Pay screen page</div>)
-// }

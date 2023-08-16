@@ -96,6 +96,11 @@ export default function Menu() {
     </Col>
   ))}
 </Row>
+      {showMessage && (
+        <div className="message" style={{ position: 'fixed', bottom: '100px', width: '100%', textAlign: 'center' }}>
+          <Text>메뉴가 장바구니에 담겼습니다</Text>
+        </div>
+      )}
       {!!totalCount && (
         <div className="footer" style={{ position: 'fixed', bottom: 0, width: '100%' }}>
           <Button
@@ -138,11 +143,6 @@ export default function Menu() {
           </div>
         </div>
       </Modal>
-      {showMessage && (
-        <div className="message">
-          <Text>메뉴가 장바구니에 담겼습니다</Text>
-        </div>
-      )}
     </div>
   );
 };
