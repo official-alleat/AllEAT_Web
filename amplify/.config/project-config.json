@@ -1,0 +1,17 @@
+{
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "AllEATWeballeat",
+  "version": "3.1",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react",
+    "config": {
+      "SourceDir": "alleat/src",
+      "DistributionDir": "alleat/build",
+      "BuildCommand": "npm run build",
+      "StartCommand": "npm start"
+    }
+  }
+}

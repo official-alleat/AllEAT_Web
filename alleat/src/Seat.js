@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import { API, graphqlOperation } from 'aws-amplify';
+import { listRestaurants } from "./graphql/queries";
+import { updateRestaurant } from "./graphql/mutations";
 import { Image, Modal, Button, Typography, Row, Col, InputNumber } from 'antd';
-import { w3cwebsocket} from 'websocket'
 import stores from './stores.js';
 import './Store.css';
 
@@ -17,35 +19,50 @@ export default function Seat() {
     const [modalVisible, setModalVisible] = useState(false);
     const [adultCount, setAdultCount] = useState(0);
     const [childCount, setChildCount] = useState(0);
-    const [tableNum, setTableNum] = useState(0);
-    const [tablesStatus, setTablesStatus] = useState([]);
+    const [tableItem, setTableItem] = useState({});
+    const [restaurants, setRestaurants] = useState([]);
+
+    const fetchData = async(storeId) => {
+      const restaurant = await API.graphql(graphqlOperation(listRestaurants, {
+        filter: {
+          storeId: {
+            eq: storeId
+          }
+        }
+      }));
+      setRestaurants(restaurant.data.listRestaurants.items);
+    }
 
     useEffect(() => {
-      const ws = new w3cwebsocket('ws://localhost:8080');
-        ws.onopen = () => {
-          console.log('Connection is open.');
-          ws.send(JSON.stringify({ 'storeId': storeId, 'tableNum': -1, 'command': 'get' }));
-        };
-    
-        ws.onmessage = (event) => {
-          console.log('Received from server:', event.data);
-    
-          const jsonData = JSON.parse(event.data);
-          const newStatus = jsonData[1]['available'];
-          setTablesStatus(newStatus);
-        };
-    
-        ws.onerror = (error) => {
-          console.log('WebSocket error:', error);
-        };
-    
-        return () => {
-          ws.close();
-          console.log('Connection is closed.');
-        };
+      fetchData()
     }, [storeId]);
 
-    console.log(tablesStatus)
+    const reserveTable = async() => {
+      await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
+        .then(result => {
+          console.log('Restaurant updated:', result.data.updateRestaurant);
+          fetchData(storeId);
+        })
+        .catch(error => {
+          console.error('Error updating restaurant:', error);
+        });
+    }
+
+    const getAvailability = (target_table) => {
+      const table = restaurants.find(item => item.tableNumber === target_table);
+      return table ? table.available : null;
+    }
+
+    const releaseTable = async () => {
+      await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: true} }))
+        .then(result => {
+          console.log('Restaurant updated:', result.data.updateRestaurant);
+          fetchData(storeId);
+        })
+        .catch(error => {
+          console.error('Error updating restaurant:', error);
+        });
+    }
     
     const getTables = () => {
         return (
@@ -54,17 +71,17 @@ export default function Seat() {
               {tableRow.map((table, col) => (
                 <Col key={row * 100 + col}>
                   {table ?
-                    tablesStatus[table] ?
+                    getAvailability(table) ?
                       <Button
                         className="availableTable"
-                        onClick={() => { setModalVisible(!modalVisible); setTableNum(table); }}
+                        onClick={() => { setTableItem(restaurants.find(item => item.tableNumber === table)); setModalVisible(!modalVisible); }}
                       >
                         좌석{table}
                       </Button>
                       :
                       <Button
                         className="reservedTable"
-                        onClick={() => { setTableNum(table); }}
+                        onClick={() => { setTableItem(restaurants.find(item => item.tableNumber === table)); }}
                       >
                         좌석{table}
                       </Button>
@@ -93,10 +110,8 @@ export default function Seat() {
 
       <div className="tableGrid">
         {getTables()}
-        {/* <Button onClick={() => ws.send(JSON.stringify({ 'storeId': storeId, 'tableNum': tableNum, 'command': 'reserve' }))}>예약하기</Button>
-        <Button onClick={() => ws.send(JSON.stringify({ 'storeId': storeId, 'tableNum': tableNum, 'command': 'cancel' }))}>취소하기</Button> */}
-        <Button onClick={() => console.log('예약하기')}>예약하기</Button>
-        <Button onClick={() => console.log('취소하기')}>취소하기</Button>
+        <Button onClick={() => reserveTable()}>예약하기</Button>
+        <Button onClick={() => releaseTable()}>취소하기</Button>
       </div>
 
       <Modal
@@ -113,7 +128,7 @@ export default function Seat() {
             onClick={() =>
               navigate('/menu', {state: {
                 storeId: storeId,
-                tableNum: tableNum,
+                tableNum: tableItem.tableNumber,
                 customerNum: adultCount + childCount
               }})
             }
