@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listRestaurants } from "./graphql/queries";
 import { updateRestaurant } from "./graphql/mutations";
-import { Image, Modal, Button, Typography, Row, Col, InputNumber } from 'antd';
+import { Image, Modal, Button, Typography, Row, InputNumber } from 'antd';
+import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores.js';
-import './Store.css';
+import './Seat.css';
+import './bootstrap.css';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export default function Seat() {
     const location = useLocation();
@@ -65,45 +67,53 @@ export default function Seat() {
     }
     
     const getTables = () => {
-        return (
-          tables.map((tableRow, row) => (
-            <Row key={row} gutter={[10, 10]} style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around' }}>
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {tables.map((tableRow, row) => (
+            <div key={row} style={{ display: 'flex', flexDirection: 'row' }}>
               {tableRow.map((table, col) => (
-                <Col key={row * 100 + col}>
-                  {table ?
-                    getAvailability(table) ?
-                      <Button
-                        className="availableTable"
-                        onClick={() => { setTableItem(restaurants.find(item => item.tableNumber === table)); setModalVisible(!modalVisible); }}
-                      >
-                        좌석{table}
-                      </Button>
-                      :
-                      <Button
-                        className="reservedTable"
-                        onClick={() => { setTableItem(restaurants.find(item => item.tableNumber === table)); }}
-                      >
-                        좌석{table}
-                      </Button>
-                    :
-                    <div style={{height: '50px', width:'50px'}}></div>
-                  }
-                </Col>
+                <div
+                  key={row * 100 + col}
+                  style={{
+                    width: '50px',
+                    height: '50px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: '5px',
+                    border: table && '1px solid gray',
+                    borderRadius: '7px',
+                    backgroundColor: table ? (getAvailability(table) ? 'white' : '#616161') : '#fff'
+                  }}
+                  onClick={() => {
+                    if (table) {
+                      if (getAvailability(table)) {
+                        setTableItem(restaurants.find(item => item.tableNumber === table));
+                        setModalVisible(!modalVisible);
+                      } else {
+                        setTableItem(restaurants.find(item => item.tableNumber === table));
+                      }
+                    }
+                  }}
+                >
+                  {table ? `좌석${table}` : null}
+                </div>
               ))}
-            </Row>
-          ))
-        );
+            </div>
+          ))}
+        </div>
+      );
     };
 
     return (
     <div className="container">
-      <div className="storeCell">
-        <div className="storeDescription">
-          <Image style={{height: "200px"}} src={store.image} />
+      <div className="StoreCell">
+        <div className="StoreDescription">
+          <Image style={{width: '60px', height: '60px', marginRight: '10px', borderRadius: '7px'}} src={store.image}/>
           <div>
-            <Title level={4}>{store.name}</Title>
-            <div>{store.tag}</div>
-            <div>{store.location}</div>
+            <div className="StoreName">{store.name}</div>
+            <div className="StoreTag">{store.tag}</div>
+            <div className="StoreLocation">{store.location}</div>
           </div>
         </div>
       </div>
@@ -137,20 +147,18 @@ export default function Seat() {
           </Button>,
         ]}
       >
-        <Row gutter={[10, 10]} align="middle">
-          <Col>
-            <Text>성인</Text>
-            <Button onClick={() => setAdultCount(pre => Math.max(0, pre - 1))}>-</Button>
-            <InputNumber value={adultCount} onChange={value => setAdultCount(value)} min={0} />
-            <Button onClick={() => setAdultCount(pre => pre + 1)}>+</Button>
-          </Col>
-          <Col>
-            <Text>유아</Text>
-            <Button onClick={() => setChildCount(pre => Math.max(0, pre - 1))}>-</Button>
-            <InputNumber value={childCount} onChange={value => setChildCount(value)} min={0} />
-            <Button onClick={() => setChildCount(pre => pre + 1)}>+</Button>
-          </Col>
-        </Row>
+          <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
+            <Text style={{ marginRight: '10px' }}>성인</Text>
+            <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setAdultCount(pre => Math.max(0, pre - 1))}/>
+            <InputNumber style={{ margin: 10 }} value={adultCount} controls={false} onChange={value => setAdultCount(value)} min={0} />
+            <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setAdultCount(pre => pre + 1)}/>
+          </Row>
+          <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
+            <Text style={{ marginRight: '10px' }}>유아</Text>
+            <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setChildCount(pre => Math.max(0, pre - 1))}/>
+            <InputNumber style={{ margin: 10 }} value={childCount} controls={false} onChange={value => setChildCount(value)} min={0} />
+            <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setChildCount(pre => pre + 1)}/>
+          </Row>
       </Modal>
     </div>
   );
