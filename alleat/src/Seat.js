@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listRestaurants } from "./graphql/queries";
 import { updateRestaurant } from "./graphql/mutations";
+import { DataStore } from '@aws-amplify/datastore';
+import { Restaurant } from "./models"
 import { Image, Modal, Button, Typography, Row, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores.js';
@@ -24,7 +26,7 @@ export default function Seat() {
     const [tableItem, setTableItem] = useState({});
     const [restaurants, setRestaurants] = useState([]);
 
-    const fetchData = async(storeId) => {
+    const fetchData = async() => {
       const restaurant = await API.graphql(graphqlOperation(listRestaurants, {
         filter: {
           storeId: {
@@ -36,14 +38,21 @@ export default function Seat() {
     }
 
     useEffect(() => {
-      fetchData()
+      fetchData();
+
+      //데이터 변경사항을 구독하여 화면 업데이트
+      const subscription = DataStore.observe(Restaurant).subscribe((msg) => {
+        console.log(msg.model, msg.opType, msg.element);
+        fetchData();
+      });
+      return () => subscription.unsubscribe();
     }, [storeId]);
 
     const reserveTable = async() => {
       await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
         .then(result => {
           console.log('Restaurant updated:', result.data.updateRestaurant);
-          fetchData(storeId);
+          // fetchData();
         })
         .catch(error => {
           console.error('Error updating restaurant:', error);
@@ -59,7 +68,7 @@ export default function Seat() {
       await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: true} }))
         .then(result => {
           console.log('Restaurant updated:', result.data.updateRestaurant);
-          fetchData(storeId);
+          // fetchData();
         })
         .catch(error => {
           console.error('Error updating restaurant:', error);
