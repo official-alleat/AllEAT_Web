@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "alleatweballeat",
+    "apiName": "alleat",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
