@@ -52,7 +52,7 @@ export default function Seat() {
       await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
         .then(result => {
           console.log('Restaurant updated:', result.data.updateRestaurant);
-          // fetchData();
+          fetchData();
         })
         .catch(error => {
           console.error('Error updating restaurant:', error);
@@ -68,7 +68,7 @@ export default function Seat() {
       await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: true} }))
         .then(result => {
           console.log('Restaurant updated:', result.data.updateRestaurant);
-          // fetchData();
+          fetchData();
         })
         .catch(error => {
           console.error('Error updating restaurant:', error);
