@@ -5,7 +5,7 @@ import { listRestaurants } from "./graphql/queries";
 import { updateRestaurant } from "./graphql/mutations";
 import { DataStore } from '@aws-amplify/datastore';
 import { Restaurant } from "./models"
-import { Image, Modal, Button, Typography, Row, InputNumber } from 'antd';
+import { Image, Modal, Button, Typography, Row, InputNumber, Spin } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores.js';
 import './Seat.css';
@@ -25,8 +25,24 @@ export default function Seat() {
     const [childCount, setChildCount] = useState(0);
     const [tableItem, setTableItem] = useState({});
     const [restaurants, setRestaurants] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchData = async() => {
+      try {
+        setRefreshing(true);
+        const restaurant = await API.graphql(graphqlOperation(listRestaurants, {
+          filter: {
+            storeId: {
+              eq: storeId
+            }
+          }
+        }));
+        setRestaurants(restaurant.data.listRestaurants.items);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setRefreshing(false);
+      }
       const restaurant = await API.graphql(graphqlOperation(listRestaurants, {
         filter: {
           storeId: {
@@ -39,14 +55,23 @@ export default function Seat() {
 
     useEffect(() => {
       fetchData();
-
-      //데이터 변경사항을 구독하여 화면 업데이트
-      const subscription = DataStore.observe(Restaurant).subscribe((msg) => {
-        console.log(msg.model, msg.opType, msg.element);
+      const interval = setInterval(() => {
         fetchData();
-      });
-      return () => subscription.unsubscribe();
-    }, [storeId]);
+      }, 10000); // Fetch data every 10 seconds
+  
+      return () => clearInterval(interval);
+    }, []);
+
+    // useEffect(() => {
+    //   fetchData();
+
+    //   //데이터 변경사항을 구독하여 화면 업데이트
+    //   const subscription = DataStore.observe(Restaurant).subscribe(msg => {
+    //     console.log(msg.model, msg.opType, msg.element);
+    //     fetchData();
+    //   });
+    //   return () => subscription.unsubscribe();
+    // }, [storeId]);
 
     const reserveTable = async() => {
       await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
@@ -113,6 +138,16 @@ export default function Seat() {
         </div>
       );
     };
+
+    if (refreshing){
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+          <Spin tip="Refreshing">
+            <div className="content" />
+          </Spin>
+        </div>
+      )
+    }
 
     return (
     <div className="container">
