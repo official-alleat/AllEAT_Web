@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listRestaurants } from "./graphql/queries";
+import { listRestaurants, getRestaurant } from "./graphql/queries";
 import { updateRestaurant } from "./graphql/mutations";
 import { DataStore } from '@aws-amplify/datastore';
 import { Restaurant } from "./models"
@@ -27,6 +27,7 @@ export default function Seat() {
     const tables = store.tables;
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [chooseOtherSeatVisible, setchooseOtherSeatVisible] = useState(false);
     const [adultCount, setAdultCount] = useState(1);
     const [childCount, setChildCount] = useState(0);
     const [tableItem, setTableItem] = useState({});
@@ -78,16 +79,43 @@ export default function Seat() {
     //   });
     //   return () => subscription.unsubscribe();
     // }, [storeId]);
+    
+    const showChooseOhterSeatModal = () => {
+      setchooseOtherSeatVisible(true);
+      
+      // 2초 후에 모달 닫기
+      setTimeout(() => {
+        setchooseOtherSeatVisible(false);
+      }, 2000);
+    };
+
+    const isRealTimeEmptyTable = async() => {
+      const realtimeTable = await API.graphql(graphqlOperation(getRestaurant, {
+        id: tableItem.id
+      }));
+      console.log(realtimeTable);
+      return realtimeTable.data.getRestaurant.available
+    }
 
     const reserveTable = async() => {
-      await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
-        .then(result => {
-          console.log('Restaurant updated:', result.data.updateRestaurant);
-          fetchData();
-        })
-        .catch(error => {
-          console.error('Error updating restaurant:', error);
-        });
+      const isEmpty = await isRealTimeEmptyTable()
+      if (isEmpty === true){
+        //move to 결제 page
+        console.log('결제하면 됨!')
+      }
+      else {
+        //다른 좌석을 선택해주세요! 띄우기
+        showChooseOhterSeatModal();
+        fetchData();
+      }
+      // await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
+      //   .then(result => {
+      //     console.log('Restaurant updated:', result.data.updateRestaurant);
+      //     fetchData();
+      //   })
+      //   .catch(error => {
+      //     console.error('Error updating restaurant:', error);
+      //   });
     }
 
     const getAvailability = (target_table) => {
@@ -209,6 +237,12 @@ export default function Seat() {
             <InputNumber style={{ margin: 10 }} value={childCount} controls={false} onChange={value => setChildCount(value)} min={0} />
             <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setChildCount(pre => pre + 1)}/>
           </Row>
+      </Modal>
+      <Modal
+        title="인원 선택"
+        open={chooseOtherSeatVisible}
+        onCancel={() => setchooseOtherSeatVisible(false)}>
+        <Text>이미 선택된 좌석입니다. 다른 좌석을 골라주세요.</Text>
       </Modal>
     </div>
   );
