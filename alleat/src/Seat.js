@@ -21,7 +21,7 @@ export default function Seat() {
     const tables = store.tables;
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [adultCount, setAdultCount] = useState(0);
+    const [adultCount, setAdultCount] = useState(1);
     const [childCount, setChildCount] = useState(0);
     const [tableItem, setTableItem] = useState({});
     const [restaurants, setRestaurants] = useState([]);
@@ -193,8 +193,8 @@ export default function Seat() {
       >
           <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
             <Text style={{ marginRight: '10px' }}>성인</Text>
-            <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setAdultCount(pre => Math.max(0, pre - 1))}/>
-            <InputNumber style={{ margin: 10 }} value={adultCount} controls={false} onChange={value => setAdultCount(value)} min={0} />
+            <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setAdultCount(pre => Math.max(1, pre - 1))}/>
+            <InputNumber style={{ margin: 10 }} value={adultCount} controls={false} onChange={value => setAdultCount(value)} min={1} />
             <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={() => setAdultCount(pre => pre + 1)}/>
           </Row>
           <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>

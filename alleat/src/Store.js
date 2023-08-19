@@ -14,8 +14,10 @@ export default function StoreList() {
 
     return (
       <div className="Container">
-        <div className="TitleContainer">
-          <div className="TitleName">올잇.</div>
+        <div className="Navigation">
+          <div className="TitleContainer">
+            <div className="TitleName">올잇</div>
+          </div>
         </div>
         <Input 
           placeholder="가게 이름 검색" 
