@@ -182,7 +182,7 @@ export default function Seat() {
     // }
 
     return (
-    <div className="seat-container">
+    <div className="container">
       <Navigation />
       <div className="store-info">
         <div className="store-cell">

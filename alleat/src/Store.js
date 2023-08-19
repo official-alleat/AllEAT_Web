@@ -10,24 +10,32 @@ import './Store.css';
 export default function StoreList() {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
-  const [availableSeats, setAvailableSeats] = useState({});
+  const [storeAvailableTableCounts, setStoreAvailableTableCounts] = useState({});
 
   const fetchAvailabilityData = async () => {
     try {
       const response = await API.graphql(graphqlOperation(listRestaurants));
       const restaurants = response.data.listRestaurants.items;
-      const availabilityData = {};
+      const newStoreAvailableTableCounts = {};
 
       restaurants.forEach(restaurant => {
-        availabilityData[restaurant.id] = restaurant.available;
+        const storeId = restaurant.storeId;
+        if (restaurant.available) {
+          if (!newStoreAvailableTableCounts[storeId]) {
+            newStoreAvailableTableCounts[storeId] = 0;
+          }
+          newStoreAvailableTableCounts[storeId]++;
+        }
       });
 
-      setAvailableSeats(availabilityData);
+      setStoreAvailableTableCounts(newStoreAvailableTableCounts);
+
       console.log('restaurants', restaurants);
-      console.log('available Seats', availabilityData);
     } catch (error) {
       console.error('Error fetching availability data:', error);
     }
+
+    console.log('counts', storeAvailableTableCounts[1]);
   };
 
   useEffect(() => {
@@ -45,7 +53,7 @@ export default function StoreList() {
   );
 
   return (
-    <div className="store-container">
+    <div className="container">
       <Navigation />
       <Input 
         placeholder="가게 이름 검색" 
@@ -70,7 +78,7 @@ export default function StoreList() {
               </div>
             </div>
             <div className='available-seats'>
-              {availableSeats[store.id] ? availableSeats[store.id].filter(seat => seat === 1).length : 0}석
+              {storeAvailableTableCounts[store.id] ? storeAvailableTableCounts[store.id] : 0}석
             </div>
           </div>
         ))}

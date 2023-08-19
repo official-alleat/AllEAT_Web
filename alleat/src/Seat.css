@@ -1,44 +1,7 @@
-.seat-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #F3F3F3;
-}
-
 .store-info {
-    width: 100%;
-}
-
-.store-cell {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 5px;
-    margin: 5px 10px;
-    padding: 10px;
-}
-
-.store-description {
-    display: flex;
-    align-items: center;
-}
-
-.store-image {
-    width: 60px;
-    height: 60px;
-    margin-right: 10px;
-    border-radius: 7px;
-}
-
-.store-name {
-    font-size: larger;
-    font-weight: 500;
-    text-align: left;
-}
-
-.store-location {
-    text-align: left;
+    max-width: 100%;
+    min-width: 80%;
+    width: 80%;
 }
 
 .table-info {
@@ -116,4 +79,11 @@
     flex-direction: row;
     justify-content: space-around;
     margin: 10px;
+}
+
+/* 모바일 화면에서 적용할 스타일 */
+@media (max-width: 767px) {
+    .store-info {
+        min-width: 100%;
+    }
 }

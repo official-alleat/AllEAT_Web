@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Row, Col, Card, Typography, Badge, message, InputNumber } from 'antd';
+import { Button, Modal, Row, Col, Card, Typography, Badge, Image, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores';
 import Navigation from './Navigation';
@@ -79,7 +79,7 @@ export default function Menu() {
   const totalCount = Object.values(menuData).reduce((total, item) => total + item.count, 0);
 
   return (
-    <div className="menu-container">
+    <div className="container">
       <Navigation />
       <div className="store-info">
         <div className="store-cell">
@@ -94,38 +94,36 @@ export default function Menu() {
         </div>
       </div>
 
-      <div className="header" style={{ margin: 15 }}>
-        <Title level={3}>{stores[storeId].name}</Title>
-        <div className="header-text" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: '400',}}>테이블 번호: {tableNum}</Text>
-          <Text style={{ fontSize: 20, fontWeight: '400',}}>인원수: {customerNum}</Text>
+      <div className="menu-info">
+        <div className="menu-grid">
+          <Row gutter={[16, 16]}>
+            {menu_data.map((item, index) => (
+              <Col key={index} xs={12} sm={8} md={6} lg={4}>
+                <Card
+                  className="menu-card"
+                  onClick={() => handleCardPress(item)}
+                  hoverable
+                  cover={<img alt={item.menu_name} src={item.image} className="menuImage" />}
+                  style={{ width: '100%' }}
+                >
+                  <div className="menu-content">
+                    <Title level={5} style={{ marginTop: 5 }}>{item.menu_name}</Title>
+                    <Text>{item.price.toLocaleString()}원</Text>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
         </div>
       </div>
-      <Row gutter={[16, 16]}>
-  {menu_data.map((item, index) => (
-    <Col key={index} xs={8} sm={8} md={6} lg={4}>
-      <Card
-        className="menuCard"
-        onClick={() => handleCardPress(item)}
-        hoverable
-        cover={<img alt={item.menu_name} src={item.image} className="menuImage" />}
-        style={{ width: '100%' }}
-      >
-        <div className="menuContent">
-          <Title level={5}>{item.menu_name}</Title>
-          <Text>{item.price.toLocaleString()}원</Text>
-        </div>
-      </Card>
-    </Col>
-  ))}
-</Row>
+
       {showMessage && (
         <div className="message" style={{ position: 'fixed', bottom: '100px', width: '100%', textAlign: 'center' }}>
           <Text>메뉴가 장바구니에 담겼습니다</Text>
         </div>
       )}
       {!!totalCount && (
-        <div className="footer" style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+        <div className="footer">
           <Button
             type="primary"
             onClick={() =>
@@ -144,6 +142,7 @@ export default function Menu() {
           <Badge count={totalCount} className="badge" />
         </div>
       )}
+
       <Modal
         title={selectedItem?.menu_name}
         open={visible}

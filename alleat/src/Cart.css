@@ -1,0 +1,50 @@
+.menu-list-container {
+    max-width: 100%;
+    min-width: 80%;
+    width: 80%;
+}
+
+.menu-list {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 10px;
+}
+
+.menu-cell {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    justify-content: space-between;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu-name {
+    text-align: left;
+}
+
+.menu-price {
+    font-size: 20px;
+}
+
+.menu-count {
+    font-size: 20px;
+    margin: 0px 20px;
+}
+
+.menu-cancel {
+    position: absolute;
+    top: 1px;
+    right: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    color: grey;
+}
+
+/* 모바일 화면에서 적용할 스타일 */
+@media (max-width: 767px) {
+    .menu-list-container {
+        min-width: 100%;
+    }
+}
