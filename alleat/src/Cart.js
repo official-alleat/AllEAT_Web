@@ -12,14 +12,25 @@ export default function Cart() {
     const { storeId, tableNum, customerNum, menuData } = location.state
   const [menuCountData, setMenuCountData] = useState(menuData);
 
+  const handleIncrease = (menuName) => {
+    setMenuCount(menuName, menuCountData[menuName].count + 1);
+  };
+  
   const handleDecrease = (menuName) => {
-    if (menuCountData[menuName].count > 0) {
+    if (menuCountData[menuName].count > 1) {
       setMenuCount(menuName, menuCountData[menuName].count - 1);
     }
   };
-
-  const handleIncrease = (menuName) => {
-    setMenuCount(menuName, menuCountData[menuName].count + 1);
+  
+  const handleRemove = (menuName) => {
+    const updatedMenuCountData = {
+      ...menuCountData,
+      [menuName]: {
+        ...menuCountData[menuName],
+        count: 0,
+      },
+    };
+    setMenuCountData(updatedMenuCountData);
   };
 
   const setMenuCount = (menuName, count) => {
@@ -44,13 +55,13 @@ export default function Cart() {
               <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={() => handleDecrease(menuName)}/>
               <p style={styles.menuCount}>{menuCountData[menuName].count}</p>
               <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={() => handleIncrease(menuName)}/>
+              <span style={{ fontSize: '24px', marginLeft: '10px', cursor: 'pointer' }} onClick={() => handleRemove(menuName)}>X</span>
             </div>
           </div>
         </div>
       )
     ));
   };
-
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     Object.keys(menuCountData).forEach((menuName) => {
