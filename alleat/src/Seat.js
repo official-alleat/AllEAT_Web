@@ -145,15 +145,15 @@ export default function Seat() {
       );
     };
 
-    if (refreshing){
-      return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-          <Spin tip="Refreshing">
-            <div className="content" />
-          </Spin>
-        </div>
-      )
-    }
+    // if (refreshing){
+    //   return (
+    //     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+    //       <Spin tip="Refreshing">
+    //         <div className="content" />
+    //       </Spin>
+    //     </div>
+    //   )
+    // }
 
     return (
     <div className="container">
