@@ -16,7 +16,13 @@ const { Text } = Typography;
 export default function Seat() {
     const location = useLocation();
     const navigate = useNavigate();
-    const storeId = location.state?.storeId;
+
+    const storageId = localStorage.getItem('storeId');
+    const storeId = location.state?.storeId? location.state.storeId: storageId
+    useEffect(() => {
+      localStorage.setItem('storeId', storeId);
+    }, [storeId]);
+
     const store = stores[storeId];
     const tables = store.tables;
 

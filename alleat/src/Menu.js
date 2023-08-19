@@ -8,10 +8,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const { Title, Text } = Typography;
 
 export default function Menu() {
-    const location = useLocation();
-    const navigate = useNavigate();
-    console.log(location)
-    const { storeId, tableNum, customerNum } = location.state
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location)
+  // const { storeId, tableNum, customerNum } = location.state
+  const storeId = location.state? location.state.storeId: localStorage.getItem('storeId');
+  const tableNum = location.state? location.state.tableNum: localStorage.getItem('tableNum');
+  const customerNum = location.state? location.state.customerNum: localStorage.getItem('customerNum');
+  useEffect(() => {
+    localStorage.setItem('storeInfo', JSON.stringify({ storeId, tableNum, customerNum }));
+    localStorage.setItem('tableNum', tableNum);
+    localStorage.setItem('customerNum', customerNum);
+  }, [storeId, tableNum, customerNum]);
   const store = stores[storeId];
   const menu_data = store.menu;
 
