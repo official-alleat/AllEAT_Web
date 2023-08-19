@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Typography, Button, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores';
+import Navigation from './Navigation';
 import { useLocation, useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
@@ -15,7 +16,7 @@ export default function Cart() {
   const handleIncrease = (menuName) => {
     setMenuCount(menuName, menuCountData[menuName].count + 1);
   };
-  
+
   const handleDecrease = (menuName) => {
     if (menuCountData[menuName].count > 1) {
       setMenuCount(menuName, menuCountData[menuName].count - 1);
@@ -72,6 +73,7 @@ export default function Cart() {
 
   return (
     <div style={styles.container}>
+      <Navigation />
       <div className="header" style={{ margin: 15 }}>
         <Title level={3}>{stores[storeId].name}</Title>
         <div className="header-text" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>

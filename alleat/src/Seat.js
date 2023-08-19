@@ -3,13 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listRestaurants } from "./graphql/queries";
 import { updateRestaurant } from "./graphql/mutations";
-import { DataStore } from '@aws-amplify/datastore';
-import { Restaurant } from "./models"
 import { Image, Modal, Button, Typography, Row, InputNumber, Spin } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores.js';
+import Navigation from './Navigation';
 import './Seat.css';
-import './bootstrap.css';
 
 const { Text } = Typography;
 
@@ -150,22 +148,27 @@ export default function Seat() {
     }
 
     return (
-    <div className="container">
-      <div className="StoreCell">
-        <div className="StoreDescription">
-          <Image style={{width: '60px', height: '60px', marginRight: '10px', borderRadius: '7px'}} src={store.image}/>
-          <div>
-            <div className="StoreName">{store.name}</div>
-            <div className="StoreTag">{store.tag}</div>
-            <div className="StoreLocation">{store.location}</div>
+    <div className="seat-container">
+      <Navigation />
+      <div className="store-info">
+        <div className="store-cell">
+          <div className="store-description">
+            <Image style={{width: '70px', height: '70px', marginRight: '10px', borderRadius: '7px'}} src={store.image}/>
+            <div>
+              <div className="store-name">{store.name}</div>
+              <div className="store-tag">{store.tag}</div>
+              <div className="store-location">{store.location}</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="tableGrid">
-        {getTables()}
-        <Button onClick={() => reserveTable()}>예약하기</Button>
-        <Button onClick={() => releaseTable()}>취소하기</Button>
+      <div className="table-info">
+        <div className="table-grid">
+          {getTables()}
+          <Button onClick={() => reserveTable()}>예약하기</Button>
+          <Button onClick={() => releaseTable()}>취소하기</Button>
+        </div>
       </div>
 
       <Modal

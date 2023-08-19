@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Row, Col, Card, Typography, Badge, message, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores';
+import Navigation from './Navigation';
 import './Menu.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -70,7 +71,8 @@ export default function Menu() {
   const totalCount = Object.values(menuData).reduce((total, item) => total + item.count, 0);
 
   return (
-    <div className="container">
+    <div className="menu-container">
+      <Navigation />
       <div className="header" style={{ margin: 15 }}>
         <Title level={3}>{stores[storeId].name}</Title>
         <div className="header-text" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
