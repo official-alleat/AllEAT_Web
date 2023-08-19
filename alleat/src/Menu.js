@@ -81,6 +81,19 @@ export default function Menu() {
   return (
     <div className="menu-container">
       <Navigation />
+      <div className="store-info">
+        <div className="store-cell">
+          <div className="store-description">
+            <Image style={{width: '70px', height: '70px', marginRight: '10px', borderRadius: '7px'}} src={store.image}/>
+            <div>
+              <div className="store-name">{store.name}</div>
+              <div className="store-tag">{store.tag}</div>
+              <div className="store-location">{store.location}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="header" style={{ margin: 15 }}>
         <Title level={3}>{stores[storeId].name}</Title>
         <div className="header-text" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
