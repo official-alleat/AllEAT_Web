@@ -5,7 +5,9 @@
 }
 
 .table-info {
-    width: 100%;
+    max-width: 100%;
+    min-width: 80%;
+    width: 80%;
 }
 
 .table-grid {
@@ -84,6 +86,9 @@
 /* 모바일 화면에서 적용할 스타일 */
 @media (max-width: 767px) {
     .store-info {
+        min-width: 100%;
+    }
+    .table-info {
         min-width: 100%;
     }
 }

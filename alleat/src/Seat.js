@@ -106,14 +106,14 @@ export default function Seat() {
         showChooseOhterSeatModal();
         fetchData();
       }
-      // await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
-      //   .then(result => {
-      //     console.log('Restaurant updated:', result.data.updateRestaurant);
-      //     fetchData();
-      //   })
-      //   .catch(error => {
-      //     console.error('Error updating restaurant:', error);
-      //   });
+      await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
+        .then(result => {
+          console.log('Restaurant updated:', result.data.updateRestaurant);
+          fetchData();
+        })
+        .catch(error => {
+          console.error('Error updating restaurant:', error);
+        });
     }
 
     const getAvailability = (target_table) => {

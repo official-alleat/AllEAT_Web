@@ -55,13 +55,15 @@ export default function StoreList() {
   return (
     <div className="container">
       <Navigation />
-      <Input 
-        placeholder="가게 이름 검색" 
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        style={{ width: '80%', margin: '10px'}}
-        size="large"
-      />
+      <div className="search-box">
+        <Input 
+          placeholder="가게 이름 검색" 
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          style={{ margin: '10px'}}
+          size="large"
+        />
+      </div>
       <div className="store-list">
         {filteredStores.map((store) => (
           <div 
@@ -78,7 +80,7 @@ export default function StoreList() {
               </div>
             </div>
             <div className='available-seats'>
-              {storeAvailableTableCounts[store.id] ? storeAvailableTableCounts[store.id] : 0}석
+              {storeAvailableTableCounts[store.id] ? storeAvailableTableCounts[store.id] : 0} 석
             </div>
           </div>
         ))}

@@ -61,6 +61,10 @@
     margin: 10px 24px;
   }
 
+.badge {
+    margin-left: 5px;
+}
+
 .footer {
     position: fixed;
     bottom: 0px;

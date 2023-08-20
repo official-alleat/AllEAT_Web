@@ -124,22 +124,25 @@ export default function Menu() {
       )}
       {!!totalCount && (
         <div className="footer">
-          <Button
-            type="primary"
-            onClick={() =>
-              navigate('/cart', {state: {
-                storeId: storeId,
-                tableNum: tableNum,
-                customerNum: customerNum,
-                menuData: menuData,
-              }})
-            }
-            disabled={!totalCount}
-            className="cartButton"
-          >
-            장바구니 확인 후 결제하기
-          </Button>
-          <Badge count={totalCount} className="badge" />
+          <div style={{ margin: 5 }}>
+            <Button
+              type="primary"
+              size="large"
+              onClick={() =>
+                navigate('/cart', {state: {
+                  storeId: storeId,
+                  tableNum: tableNum,
+                  customerNum: customerNum,
+                  menuData: menuData,
+                }})
+              }
+              disabled={!totalCount}
+              className="cartButton"
+            >
+              장바구니 확인 후 결제하기
+            </Button>
+            <Badge count={totalCount} className="badge" />
+          </div>
         </div>
       )}
 

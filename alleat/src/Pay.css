@@ -1,0 +1,46 @@
+.invalid-input {
+    border: 1px solid red;
+}
+
+.error-message {
+    color: red;
+    margin: 0px;
+}
+
+.customer-info {
+    max-width: 100%;
+    min-width: 80%;
+    width: 80%;
+}
+
+.customer {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 10px;
+}
+
+.info-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 5px 5px 30px 5px;
+}
+
+.customer-name {
+    justify-content: flex-start;
+}
+
+.customer-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/* 모바일 화면에서 적용할 스타일 */
+@media (max-width: 767px) {
+    .customer-info {
+        min-width: 100%;
+    }
+}
