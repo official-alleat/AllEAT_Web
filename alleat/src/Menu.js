@@ -4,7 +4,7 @@ import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores';
 import Navigation from './Navigation';
 import './Menu.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
@@ -46,6 +46,14 @@ export default function Menu() {
     }
   }, [showMessage]);
 
+  useEffect(() => {
+    // Check if there's stored menu data in localStorage
+    const storedMenuData = JSON.parse(localStorage.getItem('menuData'));
+    if (storedMenuData) {
+      setMenuData(storedMenuData);
+    }
+  }, []);
+
   const increaseCount = () => {
     setCount(count + 1);
   };
@@ -64,13 +72,15 @@ export default function Menu() {
 
   const setMenuCount = () => {
     // Update the quantity for the selected item
-    setMenuData((prevData) => ({
-      ...prevData,
+    const updatedMenuData = {
+      ...menuData,
       [selectedItem.menu_name]: {
-        ...prevData[selectedItem.menu_name],
+        ...menuData[selectedItem.menu_name],
         count: count,
       },
-    }));
+    };
+    setMenuData(updatedMenuData);
+    localStorage.setItem('menuData', JSON.stringify(updatedMenuData)); // Save to localStorage
     setVisible(false);
     setCount(0);
     setShowMessage(true);
@@ -122,7 +132,7 @@ export default function Menu() {
           <Text>메뉴가 장바구니에 담겼습니다</Text>
         </div>
       )}
-      {!!totalCount && (
+      {totalCount && (
         <div className="footer">
           <div style={{ margin: 5 }}>
             <Button

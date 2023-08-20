@@ -73,6 +73,12 @@
 
 .ant-btn-primary {
     background-color: #8B00FF;
+    border-color: #8B00FF;
+}
+
+.ant-btn-default {
+    border-color: #8B00FF;
+    color: #8B00FF;
 }
 
 /* 모바일 화면에서 적용할 스타일 */

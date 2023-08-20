@@ -15,6 +15,12 @@ export default function Cart() {
   const store = stores[storeId];
   const [menuCountData, setMenuCountData] = useState(menuData);
 
+  const handleContinueButtonClick = () => {
+    // Update the menu data in localStorage
+    localStorage.setItem('menuData', JSON.stringify(menuCountData));
+    navigate(-1); // Go back to the previous page
+  };
+
   const handleIncrease = (menuName) => {
     setMenuCount(menuName, menuCountData[menuName].count + 1);
   };
@@ -99,17 +105,26 @@ export default function Cart() {
       <div className="footer">
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <div style={{ flex: 7, display: 'flex', justifyContent: 'center'}}>
-          <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
-          <Text style={{ fontSize: '20px' }}>{calculateTotalPrice()}원</Text>
+          <Text style={{ fontSize: '17px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
+          <Text style={{ fontSize: '17px' }}>{calculateTotalPrice()}원</Text>
           </div>
-          <div style={{ flex: 3, display: 'flex', justifyContent: 'flex-start', padding: 5 }}>
+          <div style={{ flex: 3, display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: 5 }}>
+            <div className='button-container'>
+              <Button 
+                type="default" 
+                size="large" 
+                onClick={handleContinueButtonClick}
+              >
+                메뉴추가
+              </Button>
+            </div>
             <Button 
               type="primary" 
               size="large" 
               onClick={() => navigate('/pay', { totalPrice: calculateTotalPrice() })}
             >
               결제하기
-          </Button>
+            </Button>
           </div>
         </div>
       </div>
