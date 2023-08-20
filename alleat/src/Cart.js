@@ -105,8 +105,8 @@ export default function Cart() {
       <div className="footer">
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <div style={{ flex: 7, display: 'flex', justifyContent: 'center'}}>
-          <Text style={{ fontSize: '17px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
-          <Text style={{ fontSize: '17px' }}>{calculateTotalPrice()}원</Text>
+          <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
+          <Text style={{ fontSize: '20px' }}>{calculateTotalPrice()}원</Text>
           </div>
           <div style={{ flex: 3, display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: 5 }}>
             <div className='button-container'>

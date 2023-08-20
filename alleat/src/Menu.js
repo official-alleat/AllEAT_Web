@@ -171,7 +171,7 @@ export default function Menu() {
       >
         <div className="modalContent">
           <Text style={{ fontSize: 16 }}>{selectedItem?.price}원</Text>
-          <div className="counter" style={{ marginTop: 10 }}>
+          <div className="counter">
             <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={decreaseCount} />
             <InputNumber style={{ marginLeft: 10, marginRight: 10 }} controls={false} value={count} onChange={value => setCount(value)} min={0}/>
             <PlusCircleOutlined style={{ fontSize: '24px' }} onClick={increaseCount}/>
