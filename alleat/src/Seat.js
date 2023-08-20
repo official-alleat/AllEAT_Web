@@ -15,12 +15,14 @@ export default function Seat() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const storageId = localStorage.getItem('storeId');
-    const storeId = location.state?.storeId? location.state.storeId: storageId
+    const storeId = location.state? location.state.storeId: localStorage.getItem('storeId');
+    const totalPrice = location.state? location.state.totalPrice: localStorage.getItem('totalPrice');
+    const menuCountData = location.state? location.state.menuCountData: localStorage.getItem('menuCountData');
     useEffect(() => {
       localStorage.setItem('storeId', storeId);
-    }, [storeId]);
-
+      localStorage.setItem('totalPrice', totalPrice);
+      localStorage.setItem('menuCountData', menuCountData);
+    }, [storeId, totalPrice, menuCountData]);
     const store = stores[storeId];
     const tables = store.tables;
 
@@ -100,13 +102,7 @@ export default function Seat() {
       if (isEmpty === true){
         //move to 결제 page
         console.log('결제하면 됨!')
-      }
-      else {
-        //다른 좌석을 선택해주세요! 띄우기
-        showChooseOhterSeatModal();
-        fetchData();
-      }
-      await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
+        await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
         .then(result => {
           console.log('Restaurant updated:', result.data.updateRestaurant);
           fetchData();
@@ -114,6 +110,20 @@ export default function Seat() {
         .catch(error => {
           console.error('Error updating restaurant:', error);
         });
+        navigate('/pay', {state: {
+          storeId: storeId,
+          tableNum: tableItem.tableNumber,
+          customerNum: adultCount + childCount,
+          totalPrice: totalPrice,
+          menuCountData: menuCountData
+        }})
+
+      }
+      else {
+        //다른 좌석을 선택해주세요! 띄우기
+        showChooseOhterSeatModal();
+        fetchData();
+      }
     }
 
     const getAvailability = (target_table) => {
@@ -200,8 +210,8 @@ export default function Seat() {
       <div className="table-info">
         <div className="table-grid">
           {getTables()}
-          <Button onClick={() => reserveTable()}>예약하기</Button>
-          <Button onClick={() => releaseTable()}>취소하기</Button>
+          {/* <Button onClick={() => reserveTable()}>예약하기</Button>
+          <Button onClick={() => releaseTable()}>취소하기</Button> */}
         </div>
       </div>
 
@@ -216,15 +226,9 @@ export default function Seat() {
           <Button
             key="submit"
             type="primary"
-            onClick={() =>
-              navigate('/menu', {state: {
-                storeId: storeId,
-                tableNum: tableItem.tableNumber,
-                customerNum: adultCount + childCount
-              }})
-            }
+            onClick={() => reserveTable()}
           >
-            메뉴 고르기
+            예약하기
           </Button>,
         ]}
       >

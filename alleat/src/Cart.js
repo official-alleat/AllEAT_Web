@@ -11,7 +11,7 @@ const { Title, Text } = Typography;
 export default function Cart() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { storeId, tableNum, customerNum, menuData } = location.state;
+  const { storeId, menuData } = location.state;
   const store = stores[storeId];
   const [menuCountData, setMenuCountData] = useState(menuData);
 
@@ -121,9 +121,10 @@ export default function Cart() {
             <Button 
               type="primary" 
               size="large" 
-              onClick={() => navigate('/pay', { totalPrice: calculateTotalPrice() })}
+              onClick={() => navigate('/seat', {state: {
+                storeId: storeId, totalPrice: calculateTotalPrice(), menuCountData: menuCountData}})}
             >
-              결제하기
+              좌석 선택하기
             </Button>
           </div>
         </div>

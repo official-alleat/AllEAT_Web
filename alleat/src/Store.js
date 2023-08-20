@@ -69,7 +69,7 @@ export default function StoreList() {
           <div 
             key={store.id}
             className="store-cell"
-            onClick={() => navigate('seat', { state: { storeId: store.id } })}
+            onClick={() => navigate('menu', { state: { storeId: store.id } })}
           >
             <div className="store-description">
               <Image style={{width: '70px', height: '70px', marginRight: '10px', borderRadius: '7px'}} src={store.image}/>
