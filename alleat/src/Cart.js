@@ -58,7 +58,7 @@ export default function Cart() {
       menuCountData[menuName].count > 0 && (
         <div className="menu-cell" key={index}>
           <span className='menu-cancel' onClick={() => handleRemove(menuName)}>X</span>
-          <Title className="menu-name" level={4} style={{ marginTop: 10 }}>{menuName}</Title>
+          <Title className="menu-name" level={4} style={{ fontSize: '18px', marginTop: 10 }}>{menuName}</Title>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Text className="menu-price">{menuCountData[menuName].price}원</Text>
             <div style={{ display: 'flex', alignItems: 'center' }}>
