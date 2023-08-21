@@ -2,7 +2,7 @@ const stores = {
     1: {
         id: 1,
         name: "진주집",
-        tag: "#닭칼국수 #콩국수 #생방송투데이",
+        tag: "#닭칼국수 #콩국수",
         image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150817_105%2F1439805626093qwrM1_JPEG%2F166767593044276_0.jpg",
         location: "여의도동",
         tables: [[1, 2, 3, 4, 5], [0, 0, 6, 0, 7], [8, 9, 10, 11, 0]],

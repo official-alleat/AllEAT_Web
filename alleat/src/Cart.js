@@ -99,34 +99,32 @@ export default function Cart() {
       <div className="menu-list-container">
         <div className="menu-list">
           {renderCartItems()}
+          <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+            <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
+            <Text style={{ fontSize: '20px' }}>{calculateTotalPrice()}원</Text>
+          </div>
         </div>
       </div>
 
       <div className="footer">
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: 7, display: 'flex', justifyContent: 'center'}}>
-          <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
-          <Text style={{ fontSize: '20px' }}>{calculateTotalPrice()}원</Text>
-          </div>
-          <div style={{ flex: 3, display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: 5 }}>
-            <div className='button-container'>
-              <Button 
-                type="default" 
-                size="large" 
-                onClick={handleContinueButtonClick}
-              >
-                메뉴추가
-              </Button>
-            </div>
+        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: 5 }}>
+          <div className='button-container'>
             <Button 
-              type="primary" 
+              type="default" 
               size="large" 
-              onClick={() => navigate('/seat', {state: {
-                storeId: storeId, totalPrice: calculateTotalPrice(), menuCountData: menuCountData}})}
+              onClick={handleContinueButtonClick}
             >
-              좌석 선택하기
+              메뉴 추가하기
             </Button>
           </div>
+          <Button 
+            type="primary" 
+            size="large" 
+            onClick={() => navigate('/seat', {state: {
+              storeId: storeId, totalPrice: calculateTotalPrice(), menuCountData: menuCountData}})}
+          >
+            좌석 선택하기
+          </Button>
         </div>
       </div>
     </div>

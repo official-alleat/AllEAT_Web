@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Button, InputNumber, Input, Radio, Space } from 'antd';
+import { useLocation, useNavigate } from "react-router-dom";
 import Navigation from './Navigation';
 import './Pay.css';
 
 const { Title, Text } = Typography;
 
 export default function Pay(effect, deps) {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { storeId, tableNum, customerNum, totalPrice, menuCountData } = location.state;
     const [payment, setPayment] = useState(1);
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -119,9 +123,14 @@ export default function Pay(effect, deps) {
                     </div>
                 </div>
             </div>
-            <div>
-                <Text> 계좌번호 010-9999-9999</Text>
-                <Text> 송금 확인 후 예약 확정 문자 전송됩니다.</Text>
+            <div className='pay-total'>
+                <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
+                <Text style={{ fontSize: '20px' }}>{totalPrice}원</Text>
+            </div>
+            <div className='pay-guide'>
+                <Text style={{ fontSize: '20px', marginBottom: '20px' }}> 계좌번호 010-9999-9999</Text>
+                <Text style={{ fontSize: '20px' }}> 결제하기 버튼을 누른 후 송금하시면</Text>
+                <Text style={{ fontSize: '20px' }}> 송금 확인 후 예약 확정 문자 전송됩니다.</Text>
             </div>
             {/* <Radio.Group onChange={onChangeRadio} value={payment}>
                 <Space direction="vertical" align='start'>
