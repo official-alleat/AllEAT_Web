@@ -1,0 +1,94 @@
+.store-info {
+    max-width: 100%;
+    min-width: 80%;
+    width: 80%;
+}
+
+.table-info {
+    max-width: 100%;
+    min-width: 80%;
+    width: 80%;
+}
+
+.table-grid {
+    flex: 8;
+    background-color: white;
+    border-radius: 5px;
+    margin: 5px 10px;
+    align-items: center;
+    padding: 30px;
+}
+
+.row {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.col {
+    width: 50px;
+    height: 50px;
+}
+
+.availableTable {
+    justify-content: center;
+    align-items: center;
+    background-color: white !important;
+    border-style: solid;
+    border-width: 1px;
+    margin: 10px;
+    padding: 5px !important;
+    border-radius: 7px;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.reservedTable {
+    justify-content: center;
+    align-items: center;
+    background-color: #616161 !important;
+    border-style: solid;
+    border-width: 1px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 7px;
+    height: 50px;
+    width: 50px;
+}
+
+.notTable {
+    justify-content: center;
+    background-color: #fff;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 7px;
+    height: 50px;
+    width: 50px;
+}
+
+.tableName {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.modal {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.selectNumOfPeople {
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+/* 모바일 화면에서 적용할 스타일 */
+@media (max-width: 767px) {
+    .store-info {
+        min-width: 100%;
+    }
+    .table-info {
+        min-width: 100%;
+    }
+}

@@ -1,0 +1,33 @@
+.navigation {
+    height: 40px;
+    padding: 10px;
+    width: 100%;
+    background-color: #8B00FF;
+    display: flex;
+    justify-content: center;
+}
+
+.navigation a {
+    color: white;
+    font-size: 30px;
+    margin: 0px 10px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.nav-title-container {
+    position: relative;
+    max-width: 100%;
+    min-width: 80%;
+    width: 80%;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+}
+
+/* 모바일 화면에서 적용할 스타일 */
+@media (max-width: 767px) {
+    .nav-title-container {
+        min-width: 100%;
+    }
+}
