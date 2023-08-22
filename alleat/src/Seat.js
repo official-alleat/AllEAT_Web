@@ -254,7 +254,9 @@ export default function Seat() {
       <Modal
         title="인원 선택"
         open={chooseOtherSeatVisible}
-        onCancel={() => setchooseOtherSeatVisible(false)}>
+        onCancel={() => setchooseOtherSeatVisible(false)}
+        okText="확인"
+        cancelText="취소">
         <Text>이미 선택된 좌석입니다. 다른 좌석을 골라주세요.</Text>
       </Modal>
     </div>

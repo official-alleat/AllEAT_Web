@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Button, InputNumber, Input, Radio, Space } from 'antd';
+import { Typography, message, Button, InputNumber, Input, Radio, Space } from 'antd';
 import { useLocation, useNavigate } from "react-router-dom";
 import Navigation from './Navigation';
 import './Pay.css';
@@ -60,27 +60,52 @@ export default function Pay(effect, deps) {
             return;
         }
 
-        const { IMP } = window;
-        IMP.init('imp55141717');
-
-        const data = {
-            pg: 'kakaopay', // kakaopay html5_inicis
-            pay_method: 'card',
-            merchant_uid: `mid_${new Date().getTime()}`,
-            name: '결제 테스트 올잇',
-            amount: '1000',
-            custom_data: {
-                name: '부가정보',
-                desc: '우동 셋 라면 둘',
+        // 예약 내역 전송 성공 시 알림 표시
+        message.success({
+            content: '예약 내역이 성공적으로 전송되었습니다! 송금 확인 후 확정 문자가 전송됩니다.',
+            style: {
+                marginTop: '80vh', // 화면 중앙에 배치되도록 설정
             },
-            buyer_name: name,
-            buyer_tel: phoneNumber,
-            buyer_email: '14279625@gmail.com',
-            buyer_addr: '구천면로 000-00',
-            buyer_postalcode: '01234',
-        };
+            duration: 4, // 알림 메시지가 5초 동안 표시됩니다.
+            onClose: () => {
+                // 5초 후에 Store 페이지로 이동
+                navigate('/');
+            },
+        });
 
-        IMP.request_pay(data, callback);
+        // const { IMP } = window;
+        // IMP.init('imp55141717');
+
+        // const data = {
+        //     pg: 'kakaopay', // kakaopay html5_inicis
+        //     pay_method: 'card',
+        //     merchant_uid: `mid_${new Date().getTime()}`,
+        //     name: '결제 테스트 올잇',
+        //     amount: '1000',
+        //     custom_data: {
+        //         name: '부가정보',
+        //         desc: '우동 셋 라면 둘',
+        //     },
+        //     buyer_name: name,
+        //     buyer_tel: phoneNumber,
+        //     buyer_email: '14279625@gmail.com',
+        //     buyer_addr: '구천면로 000-00',
+        //     buyer_postalcode: '01234',
+        // };
+
+        // IMP.request_pay(data, callback);
+
+        // const callback = response => {
+        //     const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status } = response;
+        
+        //     if (success) {
+        //         // 결제 성공 시 알림 표시
+        //         message.success('예약 내역이 성공적으로 전송되었습니다! 송금 확인 후 확정 문자가 전송됩니다.');
+        //     } else {
+        //         // 결제 실패 시 알림 표시
+        //         message.error(`결제 실패: ${error_msg}`);
+        //     }
+        // };
     };
 
     const callback = response => {
@@ -130,7 +155,7 @@ export default function Pay(effect, deps) {
             <div className='pay-guide'>
                 <Text style={{ fontSize: '20px', marginBottom: '20px' }}> 계좌번호 010-9999-9999</Text>
                 <Text style={{ fontSize: '20px' }}> 결제하기 버튼을 누른 후 송금하시면</Text>
-                <Text style={{ fontSize: '20px' }}> 송금 확인 후 예약 확정 문자 전송됩니다.</Text>
+                <Text style={{ fontSize: '20px' }}> 송금 확인 후 예약 확정 문자가 전송됩니다.</Text>
             </div>
             {/* <Radio.Group onChange={onChangeRadio} value={payment}>
                 <Space direction="vertical" align='start'>
