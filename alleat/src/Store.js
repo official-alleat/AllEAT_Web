@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Input, Image, Button } from "antd";
+import { Input, Image } from "antd";
 import { API, graphqlOperation } from 'aws-amplify';
 import { listRestaurants } from "./graphql/queries";
 import stores from './stores.js';
@@ -55,6 +55,24 @@ export default function StoreList() {
   return (
     <div className="container">
       <Navigation />
+      <div className="banner">
+        <img
+          src={require('./assets/올잇배너.png')}
+          alt="올잇 배너"
+          className="web-banner"
+          style={{
+            objectFit: 'cover',
+            width: '100%',
+            height: '100%',
+          }}
+        />
+        <div className="banner-text">
+          <p className="banner-line1">웨이팅 없는 여의도 점심 식사!</p>
+          <p></p>
+          <p className="banner-line2">직장인분들의 소중한 점심시간, 올잇이 지켜줄게요.</p>
+        </div>
+      </div>
+
       <div className="search-box">
         <Input 
           placeholder="가게 이름 검색" 

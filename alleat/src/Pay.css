@@ -38,6 +38,17 @@
     margin-bottom: 10px;
 }
 
+.pay-total {
+    width: 80%;
+    margin: 20px;
+}
+
+.pay-guide {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 0px;
+}
+
 /* 모바일 화면에서 적용할 스타일 */
 @media (max-width: 767px) {
     .customer-info {

@@ -109,8 +109,8 @@ export default function Menu() {
                   className="menu-card"
                   onClick={() => handleCardPress(item)}
                   hoverable
-                  cover={<img alt={item.menu_name} src={item.image} className="menuImage" />}
-                  style={{ width: '100%' }}
+                  cover={<img alt={item.menu_name} src={item.image} className="menuImage" style={{ width: '100%' }}/>}
+                  style={{ width: '100%', height: '100%'}}
                 >
                   <div className="menu-content">
                     <Title level={5} style={{ marginTop: 5 }}>{item.menu_name}</Title>
@@ -128,7 +128,7 @@ export default function Menu() {
           <Text>메뉴가 장바구니에 담겼습니다</Text>
         </div>
       )}
-      {totalCount && (
+      {totalCount > 0 && (
         <div className="footer">
           <div style={{ margin: 5 }}>
             <Button

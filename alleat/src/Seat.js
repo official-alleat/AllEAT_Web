@@ -102,6 +102,7 @@ export default function Seat() {
       if (isEmpty === true){
         //move to 결제 page
         console.log('결제하면 됨!')
+
         await API.graphql(graphqlOperation(updateRestaurant, { input: {id: tableItem.id, tableNumber: tableItem.tableNumber, storeId: storeId, available: false} }))
         .then(result => {
           console.log('Restaurant updated:', result.data.updateRestaurant);
@@ -110,6 +111,11 @@ export default function Seat() {
         .catch(error => {
           console.error('Error updating restaurant:', error);
         });
+
+        // setTimeout(() => {
+        //   releaseTable();
+        // }, 5000); // 5초 뒤에 releaseTable 함수 호출
+
         navigate('/pay', {state: {
           storeId: storeId,
           tableNum: tableItem.tableNumber,
@@ -210,8 +216,8 @@ export default function Seat() {
       <div className="table-info">
         <div className="table-grid">
           {getTables()}
-          {/* <Button onClick={() => reserveTable()}>예약하기</Button>
-          <Button onClick={() => releaseTable()}>취소하기</Button> */}
+          <Button onClick={() => reserveTable()}>예약하기</Button>
+          <Button onClick={() => releaseTable()}>취소하기</Button>
         </div>
       </div>
 
@@ -248,7 +254,9 @@ export default function Seat() {
       <Modal
         title="인원 선택"
         open={chooseOtherSeatVisible}
-        onCancel={() => setchooseOtherSeatVisible(false)}>
+        onCancel={() => setchooseOtherSeatVisible(false)}
+        okText="확인"
+        cancelText="취소">
         <Text>이미 선택된 좌석입니다. 다른 좌석을 골라주세요.</Text>
       </Modal>
     </div>
