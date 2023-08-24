@@ -70,12 +70,14 @@ export default function Account() {
   return (
     <div className="container">
       <Navigation />
-      <div>가게 이름</div>
-      <Input label="가게이름" onChange={handleNameChange}/>
-      <div>비밀번호</div>
-      <Input label="비밀번호" onChange={handlePassWordChange}/>
-      <div style={{color: 'red'}}>{error}</div>
-      <Button onClick={handleSubmit} style={{borderRadius: 5}}>로그인</Button>
+      <div style={{width: '60%', display: 'flex', flexDirection: 'column'}}>
+        <div style={{marginTop: '20px', marginBottom: '5px', textAlign: 'left'}}>가게 이름</div>
+        <Input label="가게이름" onChange={handleNameChange}/>
+        <div style={{marginTop: '20px', marginBottom: '5px', textAlign: 'left'}}>비밀번호</div>
+        <Input label="비밀번호" onChange={handlePassWordChange}/>
+        <div style={{color: 'red'}}>{error}</div>
+        <Button onClick={handleSubmit} style={{borderRadius: 5, marginTop: '40px'}}>로그인</Button>
+      </div>
     </div>
   );
 }
