@@ -6,8 +6,7 @@ const stores = {
         image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150817_173%2F14398056331785xL5V_JPEG%2F166767593044276_21.jpg",
         location: "여의도동",
         tables: [[1, 2, 3, 4, 5], [0, 0, 6, 0, 7], [8, 9, 10, 11, 0]],
-        menu: [{ image: "https://drive.google.com/uc?id=1x81RAOM6LKS8HHFP7ix9w1_eOPOp2Cvc", menu_name: "냉콩국수", price: 14000},
-        { image: require("./assets/진주집/냉콩국수.jpg"), menu_name: "냉콩국수", price: 14000 },
+        menu: [{ image: require("./assets/진주집/냉콩국수.jpg"), menu_name: "냉콩국수", price: 14000 },
         { image: require("./assets/진주집/비빔국수.jpg"), menu_name: "비빔국수", price: 11000 },
         { image: require("./assets/진주집/닭칼국수.jpg"), menu_name: "닭칼국수", price: 11000 },
         { image: require("./assets/진주집/접시만두.jpg"), menu_name: "접시만두", price: 11000 }],
@@ -94,7 +93,7 @@ const stores = {
     "9": {
         "id": "9",
         "name": "향꽃",
-        "tag": "#향 #꽃",
+        "tag": "#전통 #민속주점",
         "image": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20200626_76%2F159317801514034drF_JPEG%2FR6QcbX7Xht27SbgvnbuukTdI.jpg",
         "location": "서울특별시",
         "tables": [[1, 2, 3, 4, 5], [0, 0, 6, 0, 7], [8, 9, 10, 11, 0]]
