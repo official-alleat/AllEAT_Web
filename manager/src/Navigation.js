@@ -6,7 +6,7 @@ export default function Navigation() {
   return (
     <div className="navigation">
       <div className="nav-title-container">
-        <Link to="/">올잇</Link>
+        <Link to="/">올잇 매니저</Link>
       </div>
     </div>
   );
