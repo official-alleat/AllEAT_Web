@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Row, Col, Card, Typography, Badge, Image, InputNumber } from 'antd';
+import { Button, message, Modal, Row, Col, Card, Typography, Badge, Image, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import stores from './stores';
 import Navigation from './Navigation';
@@ -58,6 +58,13 @@ export default function Menu() {
     if (count > 1) {
       setCount(count - 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    setMenuCount();
+
+    message.destroy(); // Destroy any existing messages
+    message.success('메뉴가 장바구니에 담겼습니다.', 2); // Show new message for 2 seconds
   };
 
   const handleCardPress = (item) => {
@@ -123,11 +130,11 @@ export default function Menu() {
         </div>
       </div>
 
-      {showMessage && (
-        <div className="message" style={{ position: 'fixed', bottom: '30px', width: '100%', textAlign: 'center' }}>
+      {/* {showMessage && (
+        <div className="message" style={{ position: 'fixed', bottom: '100px', width: '100%', textAlign: 'center' }}>
           <Text>메뉴가 장바구니에 담겼습니다</Text>
         </div>
-      )}
+      )} */}
       {totalCount > 0 && (
         <div className="footer">
           <div style={{ margin: 5 }}>
@@ -158,7 +165,7 @@ export default function Menu() {
           <Button key="cancel" onClick={() => setVisible(false)}>
             취소
           </Button>,
-          <Button key="confirm" type="primary" onClick={setMenuCount}>
+          <Button key="confirm" type="primary" onClick={handleAddToCart}>
             담기
           </Button>,
         ]}

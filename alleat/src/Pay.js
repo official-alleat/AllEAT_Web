@@ -21,10 +21,10 @@ export default function Pay(effect, deps) {
 
     const handleCopyAccountNumber = () => {
         copy(accountNumber); // 계좌번호 클립보드에 복사
-        message.success({
-            content: '계좌번호가 클립보드에 복사되었습니다.',
-            duration: 2,
-        });
+        // message.success({
+        //     content: '계좌번호가 클립보드에 복사되었습니다.',
+        //     duration: 2,
+        // });
     };
 
     const checkPhoneNumber = (value) => {
