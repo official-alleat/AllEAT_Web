@@ -137,14 +137,6 @@ const stores = {
         "image": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180330_124%2F1522375842521X9twO_PNG%2FqzMXrxLio43nP-dhoP9Mp7nD.png",
         "location": "서울특별시",
         "tables": [[1, 2, 3, 4, 5], [0, 0, 6, 0, 7], [8, 9, 10, 11, 0]]
-    },
-    "12": {
-        "id": "12",
-        "name": "빠빠빠 치킨",
-        "tag": "#빠 #빠빠 #치킨",
-        "image": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180330_124%2F1522375842521X9twO_PNG%2FqzMXrxLio43nP-dhoP9Mp7nD.png",
-        "location": "서울특별시",
-        "tables": [[1, 2, 3, 4, 5], [0, 0, 6, 0, 7], [8, 9, 10, 11, 0]]
     }
 };
 

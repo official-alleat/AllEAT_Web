@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, message, Button, InputNumber, Input, Radio, Space } from 'antd';
 import { useLocation, useNavigate } from "react-router-dom";
+import copy from 'copy-to-clipboard';
 import Navigation from './Navigation';
 import './Pay.css';
 
 const { Title, Text } = Typography;
+
 
 export default function Pay(effect, deps) {
     const location = useLocation();
@@ -15,6 +17,15 @@ export default function Pay(effect, deps) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isNameValid, setIsNameValid] = useState(false);
     const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
+    const accountNumber = '3020894235633';
+
+    const handleCopyAccountNumber = () => {
+        copy(accountNumber); // 계좌번호 클립보드에 복사
+        message.success({
+            content: '계좌번호가 클립보드에 복사되었습니다.',
+            duration: 2,
+        });
+    };
 
     const checkPhoneNumber = (value) => {
         // '-' 입력 시
@@ -62,13 +73,12 @@ export default function Pay(effect, deps) {
 
         // 예약 내역 전송 성공 시 알림 표시
         message.success({
-            content: '예약 내역이 성공적으로 전송되었습니다! 송금 확인 후 확정 문자가 전송됩니다.',
+            content: ('예약 완료! 송금 확인 후 예약 확정 문자가 전송됩니다.'),
             style: {
-                marginTop: '80vh', // 화면 중앙에 배치되도록 설정
+                marginTop: '80vh',
             },
-            duration: 4, // 알림 메시지가 5초 동안 표시됩니다.
+            duration: 4,
             onClose: () => {
-                // 5초 후에 Store 페이지로 이동
                 navigate('/');
             },
         });
@@ -153,7 +163,15 @@ export default function Pay(effect, deps) {
                 <Text style={{ fontSize: '20px' }}>{totalPrice}원</Text>
             </div>
             <div className='pay-guide'>
-                <Text style={{ fontSize: '20px', marginBottom: '20px' }}> 계좌번호 010-9999-9999</Text>
+                <Text style={{ fontSize: '20px', marginBottom: '20px' }}>
+                    계좌번호
+                    <span
+                        style={{ color: 'blue', cursor: 'pointer', marginLeft: '5px' }}
+                        onClick={handleCopyAccountNumber}
+                    >
+                        {accountNumber}
+                    </span>
+                </Text>
                 <Text style={{ fontSize: '20px' }}> 결제하기 버튼을 누른 후 송금하시면</Text>
                 <Text style={{ fontSize: '20px' }}> 송금 확인 후 예약 확정 문자가 전송됩니다.</Text>
             </div>

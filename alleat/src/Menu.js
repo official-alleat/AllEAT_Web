@@ -124,7 +124,7 @@ export default function Menu() {
       </div>
 
       {showMessage && (
-        <div className="message" style={{ position: 'fixed', bottom: '100px', width: '100%', textAlign: 'center' }}>
+        <div className="message" style={{ position: 'fixed', bottom: '30px', width: '100%', textAlign: 'center' }}>
           <Text>메뉴가 장바구니에 담겼습니다</Text>
         </div>
       )}

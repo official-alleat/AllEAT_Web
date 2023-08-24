@@ -99,7 +99,7 @@ export default function Cart() {
       <div className="menu-list-container">
         <div className="menu-list">
           {renderCartItems()}
-          <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+          <div style={{ display: 'flex', justifyContent: 'center'}}>
             <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
             <Text style={{ fontSize: '20px' }}>{calculateTotalPrice()}원</Text>
           </div>
