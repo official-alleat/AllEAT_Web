@@ -230,7 +230,7 @@ export default function Seat() {
         <div className="table-grid">
           {getTables()}
           {isMoving && <>
-              <Text>옮길 자리를 선택하세요</Text>
+              <Text style={{ marginRight: 15 }}>옮길 자리를 선택하세요</Text>
               <Button onClick={() => setIsMoving(false)}>자리 옮기기 취소</Button>
             </>}
         </div>
