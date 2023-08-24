@@ -39,6 +39,13 @@ export default function StoreList() {
   };
 
   useEffect(() => {
+    localStorage.removeItem('menuData');
+    localStorage.removeItem('storeId');
+    localStorage.removeItem('totalPrice');
+    localStorage.removeItem('menuCountData');
+  }, [])
+
+  useEffect(() => {
     fetchAvailabilityData();
 
     const interval = setInterval(() => {
