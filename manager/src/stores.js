@@ -1,11 +1,11 @@
 const stores = {
     1: {
         id: 1,
-        name: "낙원스낵",
+        name: "진주집",
         password: "1234",
-        tag: "#낙원 #스낵 #술집",
-        image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20170310_178%2F1489106896127frhab_JPEG%2F20170308_175539.jpg",
-        location: "서울특별시",
+        tag: "#닭칼국수 #콩국수",
+        image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150817_173%2F14398056331785xL5V_JPEG%2F166767593044276_21.jpg",
+        location: "여의도동",
         tables: [[1, 2, 3, 4, 5], [0, 0, 6, 0, 7], [8, 9, 10, 11, 0]]
     },
     2: {
