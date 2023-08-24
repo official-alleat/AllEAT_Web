@@ -216,8 +216,6 @@ export default function Seat() {
       <div className="table-info">
         <div className="table-grid">
           {getTables()}
-          <Button onClick={() => reserveTable()}>예약하기</Button>
-          <Button onClick={() => releaseTable()}>취소하기</Button>
         </div>
       </div>
 
