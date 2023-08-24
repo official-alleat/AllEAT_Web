@@ -73,7 +73,7 @@ export default function Pay(effect, deps) {
 
         // 예약 내역 전송 성공 시 알림 표시
         message.success({
-            content: ('예약 완료! 송금 확인 후 예약 확정 문자가 전송됩니다.'),
+            content: ('예약 완료! 송금 확인 후 확정 문자가 전송됩니다.'),
             style: {
                 marginTop: '80vh',
             },
