@@ -59,7 +59,7 @@ export default function Cart() {
         <div className="menu-cell" key={index}>
           <span className='menu-cancel' onClick={() => handleRemove(menuName)}>X</span>
           <Title className="menu-name" level={4} style={{ fontSize: '18px', marginTop: 10 }}>{menuName}</Title>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
             <Text className="menu-price">{menuCountData[menuName].price}원</Text>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <MinusCircleOutlined style={{ fontSize: '24px' }} onClick={() => handleDecrease(menuName)}/>
@@ -99,7 +99,7 @@ export default function Cart() {
       <div className="menu-list-container">
         <div className="menu-list">
           {renderCartItems()}
-          <div style={{ display: 'flex', justifyContent: 'center'}}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 15 }}>
             <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
             <Text style={{ fontSize: '20px' }}>{calculateTotalPrice()}원</Text>
           </div>

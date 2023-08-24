@@ -228,7 +228,6 @@ export default function Seat() {
             취소
           </Button>,
           <Button
-            key="submit"
             type="primary"
             onClick={() => reserveTable()}
           >
