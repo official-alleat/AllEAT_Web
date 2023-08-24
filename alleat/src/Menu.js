@@ -107,7 +107,7 @@ export default function Menu() {
         </div>
       </div>
 
-      <div className="menu-info">
+      <div className="menu-info" style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 225px)' }}>
         <div className="menu-grid">
           <Row gutter={[16, 16]}>
             {menu_data.map((item, index) => (

@@ -11,6 +11,10 @@
     margin: 5px 10px;
 }
 
+.store-cell {
+    margin-top: 10px
+}
+
 .title {
     font-size: 25px;
     font-weight: 500;
@@ -57,7 +61,7 @@
   
 .payButtonText {
     color: white;
-    font-size: 14px;
+font-size: 14px;
     margin: 10px 24px;
   }
 

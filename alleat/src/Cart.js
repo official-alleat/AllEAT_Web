@@ -96,8 +96,8 @@ export default function Cart() {
         </div>
       </div>
 
-      <div className="menu-list-container">
-        <div className="menu-list">
+      <div className="menu-list-container" style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 225px)' }}>
+        <div className="menu-list" >
           {renderCartItems()}
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 15 }}>
             <Text style={{ fontSize: '20px', fontWeight: '600', marginRight: '10%'}}>총 주문금액</Text>
